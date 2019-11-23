@@ -5,6 +5,9 @@
  */
 package tela.jogo;
 
+import tela.TelaMenu;
+import tela.exercicio.Exercicio;
+
 /**
  *
  * @author UEPA-LAB6-PC02
@@ -43,6 +46,11 @@ public class MenuJogo extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         jButton1.setText("VOLTAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 24)); // NOI18N
         jButton2.setText("DÍFICIL");
@@ -52,6 +60,11 @@ public class MenuJogo extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Segoe UI Semilight", 0, 24)); // NOI18N
         jButton4.setText("INICIANTE");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 36)); // NOI18N
         jLabel1.setText("Escolha a dificuldade do jogo:");
@@ -122,7 +135,26 @@ public class MenuJogo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      TelaMenu obj = new TelaMenu();
+       
+       obj.setVisible(true);
+       dispose();
+        
+      // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      TelaJogo obj = new TelaJogo();
+     
+         obj.setVisible(true);
+         
+         dispose();
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
