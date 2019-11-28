@@ -6,6 +6,8 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import tela.jogo.MenuJogo;
 
+import javax.swing.JOptionPane;
+
 public class Exercicio extends javax.swing.JFrame {
     int erros=0, acertos=0, vez=0;
     
@@ -13,7 +15,7 @@ public class Exercicio extends javax.swing.JFrame {
     
     char[] arrayDigitado; //Guada o texto de entrada
      
-    String a = new String("Bola casa pato \n  mesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
+    String a = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
     char[] arrayPraDigitar = a.toCharArray(); //Guarda o texto que deve ser digitado
     
     
@@ -161,6 +163,11 @@ public class Exercicio extends javax.swing.JFrame {
         label1.getAccessibleContext().setAccessibleDescription("");
 
         btnReiniciar.setText("REINICIAR");
+        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -305,8 +312,6 @@ public class Exercicio extends javax.swing.JFrame {
                 qtdErros.setText(Integer.toString(erros));
             }
         
-        
-            
             txtAnterior = txtEntrada.getText();
             vez++;
             System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
@@ -350,6 +355,17 @@ public class Exercicio extends javax.swing.JFrame {
         vez++;
         System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
     }//GEN-LAST:event_txtEntradaKeyTyped
+
+    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
+        //JOptionPane.showConfirmDialog Para confirmar o reinicio
+        if (JOptionPane.showConfirmDialog(null ,"Tem certeza que deseja Reiniciar o Exercício?", "Reiniciar",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            txtAnterior = "";
+            txtEntrada.setText("");
+
+            qtdAcertos.setText(" - ");
+            qtdErros.setText(" - ");
+        }
+    }//GEN-LAST:event_btnReiniciarActionPerformed
 
     /*
     Digitado: as
