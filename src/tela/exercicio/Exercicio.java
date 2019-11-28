@@ -6,24 +6,18 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import tela.jogo.MenuJogo;
 
-/**
- *
- * @author UEPA-LAB6-PC04
- */
 public class Exercicio extends javax.swing.JFrame {
-    int erros=0, acertos=0;
+    int erros=0, acertos=0, vez=0;
     
-    String txtAnterior = "";
+    String txtAnterior = ""; //Guarda o estado anterior do texto digitado para infrigir as regras do sistema por exemplo excluir um caractere
     
-    char[] arrayDigitado;
+    char[] arrayDigitado; //Guada o texto de entrada
      
     String a = new String("Bola casa pato \n  mesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
-    char[] arrayPraDigitar = a.toCharArray();
+    char[] arrayPraDigitar = a.toCharArray(); //Guarda o texto que deve ser digitado
     
-    //String coloridas para imprimir
-    String txtAnalisado;
     
-    // cria um StyleContext e um Document para o jtextpane
+    //Cria um StyleContext e um Document para o jtextpane
     StyleContext sc = new StyleContext();
     final DefaultStyledDocument doc = new DefaultStyledDocument(sc);
 
@@ -84,8 +78,14 @@ public class Exercicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEntradaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEntradaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEntradaKeyTyped(evt);
             }
         });
         jScrollPane1.setViewportView(txtEntrada);
@@ -276,18 +276,24 @@ public class Exercicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyReleased
+        
         acertos=0;
         erros=0;
                 
         arrayDigitado = txtEntrada.getText().toCharArray();
         
+        //Condição que aciona o evento de termino da atividade
+        if(arrayDigitado.length == arrayPraDigitar.length)
+           
+            
         //Reescreve o exto se ele for mudado
-        if( txtAnterior.length() > txtEntrada.getText().length() ||
-            txtEntrada.getText().length() >= txtSaida.getText().length()
+        if(txtAnterior.length() > txtEntrada.getText().length() ||
+            txtEntrada.getText().length() > txtSaida.getText().length()
           )txtEntrada.setText(txtAnterior);
         
         //Analisa o texto e pinta o resultado
-        for(int i=0;i<arrayDigitado.length;i++)      
+        //O for repete até o numero i for menor que o array digitado e o pra digitar
+        for(int i=0;i<arrayDigitado.length && i<arrayPraDigitar.length;i++)      
             //System.out.println("Caracter: "+arrayDigitado[i]+" Codigo: "arrayDigitado[i].getCharCode());
             if(arrayDigitado[i] == arrayPraDigitar[i]){
                 doc.setCharacterAttributes(i, 1, greenStyle, false);
@@ -299,11 +305,15 @@ public class Exercicio extends javax.swing.JFrame {
                 qtdErros.setText(Integer.toString(erros));
             }
         
-        txtAnterior = txtEntrada.getText();
+        
+            
+            txtAnterior = txtEntrada.getText();
+            vez++;
+            System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
     }//GEN-LAST:event_txtEntradaKeyReleased
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
- MenuExer obj = new MenuExer();
+        MenuExer obj = new MenuExer();
      
          obj.setVisible(true);
          
@@ -319,6 +329,33 @@ public class Exercicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void txtEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyPressed
+        //Reescreve o exto se ele for mudado
+        if(txtAnterior.length() > txtEntrada.getText().length() ||
+            txtEntrada.getText().length() > txtSaida.getText().length()
+          )txtEntrada.setText(txtAnterior);
+        
+        txtAnterior = txtEntrada.getText();
+        vez++;
+        System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
+    }//GEN-LAST:event_txtEntradaKeyPressed
+
+    private void txtEntradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyTyped
+        //Reescreve o exto se ele for mudado
+        if(txtAnterior.length() > txtEntrada.getText().length() ||
+            txtEntrada.getText().length() > txtSaida.getText().length()
+          )txtEntrada.setText(txtAnterior);
+        
+        txtAnterior = txtEntrada.getText();
+        vez++;
+        System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
+    }//GEN-LAST:event_txtEntradaKeyTyped
+
+    /*
+    Digitado: as
+    Anterior: asd
+    */
+    
     public static void main(String args[]) {        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
