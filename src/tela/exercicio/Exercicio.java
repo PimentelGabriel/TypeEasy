@@ -1,23 +1,36 @@
 package tela.exercicio;
 
 import java.awt.Color;
+
+import javax.swing.*;
+
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
-import tela.jogo.MenuJogo;
-
 import javax.swing.JOptionPane;
 
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Exercicio extends javax.swing.JFrame {
+    
+    //Variaveis do Relogio
+    private boolean execucaoExercicio = false;
+    private Timer tm = new Timer();
+    private int contador = 0;
+    private boolean rodando = false;
+    
+    //Variaveis do exercico de Digitação
+    private boolean iniciado = false;
     int erros=0, acertos=0, vez=0;
     
     String txtAnterior = ""; //Guarda o estado anterior do texto digitado para infrigir as regras do sistema por exemplo excluir um caractere
     
     char[] arrayDigitado; //Guada o texto de entrada
      
-    String a = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
-    char[] arrayPraDigitar = a.toCharArray(); //Guarda o texto que deve ser digitado
-    
+    String txtPraDigitar;
+    char[] arrayPraDigitar;
     
     //Cria um StyleContext e um Document para o jtextpane
     StyleContext sc = new StyleContext();
@@ -26,6 +39,7 @@ public class Exercicio extends javax.swing.JFrame {
     // cria um estilo e adiciona atributos personalizados nele
     final javax.swing.text.Style redStyle = sc.addStyle("RED", null);
     final javax.swing.text.Style greenStyle = sc.addStyle("BLUE", null);
+    final javax.swing.text.Style defaultStyle = sc.addStyle("WHITE", null);
     
     
     public Exercicio() {
@@ -33,10 +47,13 @@ public class Exercicio extends javax.swing.JFrame {
         
         txtSaida.setStyledDocument(doc);
         txtSaida.setEditable(false);
-        txtSaida.setText(a);
+        
+        txtEntrada.setEditable(false);
         
         redStyle.addAttribute(StyleConstants.Background, Color.red);
         greenStyle.addAttribute(StyleConstants.Background, Color.green);
+        defaultStyle.addAttribute(StyleConstants.Background, Color.WHITE);
+        
     }
 
     /**
@@ -52,17 +69,21 @@ public class Exercicio extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtEntrada = new javax.swing.JTextPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtSaida = new javax.swing.JTextPane();
         duracao = new javax.swing.JLabel();
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
         qtdErros = new javax.swing.JLabel();
         label3 = new java.awt.Label();
         qtdAcertos = new javax.swing.JLabel();
+        display = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtSaida = new javax.swing.JTextPane();
         jPanel6 = new javax.swing.JPanel();
         btnReiniciar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        btnIniciar = new javax.swing.JButton();
+        btnIniciar1 = new javax.swing.JButton();
+        label4 = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -92,11 +113,8 @@ public class Exercicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtEntrada);
 
-        txtSaida.setEditable(false);
-        jScrollPane2.setViewportView(txtSaida);
-
         duracao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        duracao.setText("-");
+        duracao.setText("- : -");
 
         label1.setText("Duração");
 
@@ -110,6 +128,80 @@ public class Exercicio extends javax.swing.JFrame {
         qtdAcertos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         qtdAcertos.setText("-");
 
+        jScrollPane3.setViewportView(txtSaida);
+
+        javax.swing.GroupLayout displayLayout = new javax.swing.GroupLayout(display);
+        display.setLayout(displayLayout);
+        displayLayout.setHorizontalGroup(
+            displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+        displayLayout.setVerticalGroup(
+            displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(displayLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnReiniciar.setText("REINICIAR");
+        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setText("VOLTAR");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        btnIniciar.setText("INICIAR");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
+
+        btnIniciar1.setText("PAUSAR");
+        btnIniciar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciar1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -118,7 +210,7 @@ public class Exercicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -133,10 +225,9 @@ public class Exercicio extends javax.swing.JFrame {
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(142, 142, 142))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(142, 142, 142))))
+            .addComponent(display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,68 +244,41 @@ public class Exercicio extends javax.swing.JFrame {
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(1, 1, 1)))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
         label1.getAccessibleContext().setAccessibleDescription("");
 
-        btnReiniciar.setText("REINICIAR");
-        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReiniciarActionPerformed(evt);
-            }
-        });
-
-        btnVoltar.setText("VOLTAR");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(505, Short.MAX_VALUE)
-                .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVoltar)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        label4.setAlignment(java.awt.Label.CENTER);
+        label4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        label4.setText("Titulo do Exercicio");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(270, 270, 270))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
+                .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -262,7 +326,7 @@ public class Exercicio extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("AJUDA");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -284,25 +348,27 @@ public class Exercicio extends javax.swing.JFrame {
 
     private void txtEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyReleased
         
-        acertos=0;
-        erros=0;
+        erros = acertos=0;
                 
         arrayDigitado = txtEntrada.getText().toCharArray();
         
         //Condição que aciona o evento de termino da atividade
-        if(arrayDigitado.length == arrayPraDigitar.length)
-           
+        if(arrayDigitado.length == arrayPraDigitar.length){
+            terminarExercicio();            
+            
+            txtEntrada.setEditable(false);
+        }
+            
             
         //Reescreve o exto se ele for mudado
         if(txtAnterior.length() > txtEntrada.getText().length() ||
-            txtEntrada.getText().length() > txtSaida.getText().length()
+            txtEntrada.getText().length() > arrayPraDigitar.length
           )txtEntrada.setText(txtAnterior);
         
         //Analisa o texto e pinta o resultado
         //O for repete até o numero i for menor que o array digitado e o pra digitar
-        for(int i=0;i<arrayDigitado.length && i<arrayPraDigitar.length;i++)      
-            //System.out.println("Caracter: "+arrayDigitado[i]+" Codigo: "arrayDigitado[i].getCharCode());
-            if(arrayDigitado[i] == arrayPraDigitar[i]){
+        for(int i=0;i<arrayDigitado.length && i<arrayPraDigitar.length;i++)
+            if(arrayDigitado[i] == arrayPraDigitar[i]){  //System.out.println("Caracter: "+arrayDigitado[i]+" Codigo: "arrayDigitado[i].getCharCode());
                 doc.setCharacterAttributes(i, 1, greenStyle, false);
                 acertos++;
                 qtdAcertos.setText(Integer.toString(acertos));
@@ -311,7 +377,7 @@ public class Exercicio extends javax.swing.JFrame {
                 erros++;
                 qtdErros.setText(Integer.toString(erros));
             }
-        
+            
             txtAnterior = txtEntrada.getText();
             vez++;
             System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
@@ -319,11 +385,8 @@ public class Exercicio extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         MenuExer obj = new MenuExer();
-     
-         obj.setVisible(true);
-         
-         dispose();
-
+        obj.setVisible(true);
+        dispose();        
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -335,7 +398,8 @@ public class Exercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void txtEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyPressed
-        //Reescreve o exto se ele for mudado
+        
+        //Reescreve o texto se ele for mudado
         if(txtAnterior.length() > txtEntrada.getText().length() ||
             txtEntrada.getText().length() > txtSaida.getText().length()
           )txtEntrada.setText(txtAnterior);
@@ -357,20 +421,213 @@ public class Exercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEntradaKeyTyped
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
+        pauseClock();
+        
         //JOptionPane.showConfirmDialog Para confirmar o reinicio
-        if (JOptionPane.showConfirmDialog(null ,"Tem certeza que deseja Reiniciar o Exercício?", "Reiniciar",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if(JOptionPane.showConfirmDialog(null ,"Tem certeza que deseja Reiniciar o Exercício?", "Reiniciar",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            //txtSaida.setBackground(Color.black);
+            txtSaida.setVisible(true);
+            
+            doc.setCharacterAttributes(0, txtSaida.getText().length()-1, defaultStyle, false); //Muda o atriuto de um caractere (No nosso caso ele irá mudar a cor)
+                
             txtAnterior = "";
             txtEntrada.setText("");
 
             qtdAcertos.setText(" - ");
             qtdErros.setText(" - ");
-        }
+            
+            //Reiniciar o tempo
+            contador = 0;
+            duracao.setText("- : -");
+            
+            iniciaExercicio();
+            startClock();
+        }    
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
-    /*
-    Digitado: as
-    Anterior: asd
-    */
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        if(!iniciado && !execucaoExercicio){
+            iniciaExercicio();
+            startClock();
+        }
+    }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void btnIniciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciar1ActionPerformed
+        if(execucaoExercicio){
+            pausarExercicio();
+            btnIniciar1.setText("CONTINUAR");
+        }else{
+            if(iniciado){
+                continuarExercicio();
+                btnIniciar1.setText("PAUSAR");
+            }        
+        }
+    }//GEN-LAST:event_btnIniciar1ActionPerformed
+    
+    //Metodo do Iniciar Relogio Relógio
+    public void startClock(){
+        if(!rodando){
+            rodando = true;
+            tm = new Timer();
+            tm.scheduleAtFixedRate(new TimerTask(){
+               @Override
+               public void run(){
+                   contador++;
+                   int seg = contador%60;
+                   int min = contador/60;
+                   min %= 60;//Pra ficar somente os minutos
+                   //contagemTempo.setText();//altera o texto da label
+                   duracao.setText(String.format("%02d:%02d", min, seg));
+               }
+            }, 1000, 1000);
+        }
+    }
+    
+    //Metodo do Iniciar Relogio Relógio
+    public void stopClock(){
+        if(!rodando){
+            tm.cancel();
+            contador=0;
+            rodando = false;
+        }
+    }
+    
+    //Metodo do Iniciar Relogio Relógio
+    public void pauseClock(){
+        if(rodando){
+            tm.cancel();
+            rodando = false;        
+        }
+    }
+    
+    public void iniciaExercicio(){
+        if(!iniciado)
+            iniciado = !iniciado;
+
+        execucaoExercicio = true;
+        txtEntrada.setEditable(true);
+
+        txtPraDigitar = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
+        arrayPraDigitar = txtPraDigitar.toCharArray(); //Guarda o texto que deve ser digitado
+        txtSaida.setText(txtPraDigitar);
+
+        txtEntrada.grabFocus();
+        
+    }
+    
+    public void pausarExercicio(){  
+        execucaoExercicio = false;
+        txtEntrada.setEditable(false);
+        pauseClock();
+    }
+    
+    public void continuarExercicio(){
+        txtEntrada.setEditable(true);
+        txtEntrada.grabFocus();
+        execucaoExercicio = true;
+        startClock();
+    }
+    
+    public void terminarExercicio(){
+        pauseClock();
+        txtSaida.setVisible(false);
+        
+        //JPanel jPanelTelaRelatorio = new javax.swing.JPanel();
+        //JLabel titulo = new javax.swing.JLabel();
+        JLabel jLabelNome = new javax.swing.JLabel();
+        JLabel lNome = new javax.swing.JLabel();
+        JLabel JLabelqtdErro = new javax.swing.JLabel();
+        JLabel jLabelqtdAcerto = new javax.swing.JLabel();
+        JLabel qtdErro = new javax.swing.JLabel();
+        JLabel qtdAcerto = new javax.swing.JLabel();
+        JLabel jLabelWpm = new javax.swing.JLabel();
+        JLabel wpm = new javax.swing.JLabel();
+        JLabel jLabelDuracao = new javax.swing.JLabel();
+        duracao = new javax.swing.JLabel();    
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        //titulo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
+        //titulo.setText("RELATÓRIO FASE 01");
+
+        jLabelNome.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelNome.setText("NOME");
+
+        lNome.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        lNome.setText("PIMENTEL");
+
+        JLabelqtdErro.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        JLabelqtdErro.setText("TAXA DE ERROS");
+
+        jLabelqtdAcerto.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelqtdAcerto.setText("TAXA DE ACERTOS");
+
+        qtdErro.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        qtdErro.setText("05");
+
+        qtdAcerto.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        qtdAcerto.setText("40");
+
+        jLabelWpm.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelWpm.setText("WPM");
+
+        wpm.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        wpm.setText("100");
+
+        jLabelDuracao.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelDuracao.setText("DURAÇÃO");
+
+        duracao.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        duracao.setText("2:35");
+
+        javax.swing.GroupLayout dadosRelatorioLayout = new javax.swing.GroupLayout(display);
+        display.setLayout(dadosRelatorioLayout);
+        dadosRelatorioLayout.setHorizontalGroup(
+            dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dadosRelatorioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelqtdAcerto)
+                    .addComponent(JLabelqtdErro)
+                    .addComponent(jLabelWpm)
+                    .addComponent(jLabelNome)
+                    .addComponent(jLabelDuracao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lNome)
+                    .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(duracao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(wpm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(qtdAcerto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(qtdErro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18))
+        );
+        dadosRelatorioLayout.setVerticalGroup(
+            dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dadosRelatorioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNome)
+                    .addComponent(lNome))
+                .addGap(11, 11, 11)
+                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLabelqtdErro)
+                    .addComponent(qtdErro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelqtdAcerto)
+                    .addComponent(qtdAcerto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelWpm)
+                    .addComponent(wpm))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDuracao)
+                    .addComponent(duracao))
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+    }
     
     public static void main(String args[]) {        
         /* Set the Nimbus look and feel */
@@ -408,8 +665,11 @@ public class Exercicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIniciar;
+    private javax.swing.JButton btnIniciar1;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JPanel display;
     private javax.swing.JLabel duracao;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -428,10 +688,11 @@ public class Exercicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
+    private java.awt.Label label4;
     private javax.swing.JLabel qtdAcertos;
     private javax.swing.JLabel qtdErros;
     private javax.swing.JTextPane txtEntrada;
