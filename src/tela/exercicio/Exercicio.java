@@ -7,7 +7,6 @@ import javax.swing.*;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
-<<<<<<< HEAD
 import javax.swing.JOptionPane;
 
 
@@ -18,39 +17,22 @@ public class Exercicio extends javax.swing.JFrame {
     
     //Variaveis do Relogio
     private boolean execucaoExercicio = false;
+    private boolean rodando = false;
     private Timer tm = new Timer();
     private int contador = 0;
-    private boolean rodando = false;
     
     //Variaveis do exercico de Digitação
     private boolean iniciado = false;
     int erros=0, acertos=0, vez=0;
-=======
-
-/**
- *
- * @author UEPA-LAB6-PC04
- */
-public class Exercicio extends javax.swing.JFrame {
-    int erros=0, acertos=0;
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
     
-    String txtAnterior = "";
+    String txtAnterior = ""; //Guarda o estado anterior do texto digitado para infrigir as regras do sistema por exemplo excluir um caractere
     
-    char[] arrayDigitado;
+    char[] arrayDigitado; //Guada o texto de entrada
      
-<<<<<<< HEAD
     String txtPraDigitar;
     char[] arrayPraDigitar;
-=======
-    String a = new String("Bola casa pato mesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
-    char[] arrayPraDigitar = a.toCharArray();
     
-    //String coloridas para imprimir
-    String txtAnalisado;
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
-    
-    // cria um StyleContext e um Document para o jtextpane
+    //Cria um StyleContext e um Document para o jtextpane
     StyleContext sc = new StyleContext();
     final DefaultStyledDocument doc = new DefaultStyledDocument(sc);
 
@@ -93,7 +75,6 @@ public class Exercicio extends javax.swing.JFrame {
         qtdErros = new javax.swing.JLabel();
         label3 = new java.awt.Label();
         qtdAcertos = new javax.swing.JLabel();
-<<<<<<< HEAD
         display = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtSaida = new javax.swing.JTextPane();
@@ -101,13 +82,8 @@ public class Exercicio extends javax.swing.JFrame {
         btnReiniciar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnIniciar = new javax.swing.JButton();
-        btnPausarContinuar = new javax.swing.JButton();
+        btnIniciar1 = new javax.swing.JButton();
         label4 = new java.awt.Label();
-=======
-        btnReiniciar = new javax.swing.JButton();
-        btnVoltar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -120,21 +96,19 @@ public class Exercicio extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
-
-        jPanel1.setLayout(null);
 
         txtEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEntradaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEntradaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEntradaKeyTyped(evt);
             }
         });
         jScrollPane1.setViewportView(txtEntrada);
@@ -194,10 +168,10 @@ public class Exercicio extends javax.swing.JFrame {
             }
         });
 
-        btnPausarContinuar.setText("PAUSAR");
-        btnPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciar1.setText("PAUSAR");
+        btnIniciar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPausarContinuarActionPerformed(evt);
+                btnIniciar1ActionPerformed(evt);
             }
         });
 
@@ -209,7 +183,7 @@ public class Exercicio extends javax.swing.JFrame {
                 .addGap(151, 151, 151)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
@@ -223,7 +197,7 @@ public class Exercicio extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -233,54 +207,40 @@ public class Exercicio extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-<<<<<<< HEAD
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-=======
-                        .addGap(176, 176, 176)
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(qtdErros, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< HEAD
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(142, 142, 142))))
             .addComponent(display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-=======
-                        .addGap(10, 10, 10)
-                        .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(qtdErros, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(1, 1, 1)))
@@ -291,22 +251,10 @@ public class Exercicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
-=======
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(qtdErros, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                .addContainerGap())
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
         );
 
         label1.getAccessibleContext().setAccessibleDescription("");
 
-<<<<<<< HEAD
         label4.setAlignment(java.awt.Label.CENTER);
         label4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         label4.setText("Titulo do Exercicio");
@@ -333,50 +281,10 @@ public class Exercicio extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-=======
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(110, 31, 687, 500);
 
-        btnReiniciar.setBackground(new java.awt.Color(0, 0, 0));
-        btnReiniciar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnReiniciar.setForeground(new java.awt.Color(51, 153, 255));
-        btnReiniciar.setText("REINICIAR");
-        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReiniciarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnReiniciar);
-        btnReiniciar.setBounds(540, 540, 110, 50);
+        jMenu1.setText("FASES");
 
-        btnVoltar.setBackground(new java.awt.Color(0, 0, 0));
-        btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnVoltar.setForeground(new java.awt.Color(51, 153, 255));
-        btnVoltar.setText("VOLTAR");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnVoltar);
-        btnVoltar.setBounds(680, 540, 110, 50);
-
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imj/tecladoexerc.png"))); // NOI18N
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 810, 610);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 810, 610);
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
-
-        jMenuBar1.setBackground(new java.awt.Color(51, 51, 51));
-        jMenuBar1.setForeground(new java.awt.Color(51, 153, 255));
-
-        jMenu1.setText("           FASES        ");
-
-        jMenuItem1.setText("FASE   1");
+        jMenuItem1.setText("FASE  1");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -384,7 +292,7 @@ public class Exercicio extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("FASE   2");
+        jMenuItem2.setText("FASE  2");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -392,70 +300,61 @@ public class Exercicio extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("FASE   3");
+        jMenuItem3.setText("FASE  3");
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setText("FASE   4");
+        jMenuItem4.setText("FASE  4");
         jMenu1.add(jMenuItem4);
 
-        jMenuItem5.setText("FASE   5");
+        jMenuItem5.setText("FASE  5");
         jMenu1.add(jMenuItem5);
 
-        jMenuItem6.setText("FASE   6");
+        jMenuItem6.setText("FASE  6");
         jMenu1.add(jMenuItem6);
 
-        jMenuItem7.setText("FASE   7");
+        jMenuItem7.setText("FASE  7");
         jMenu1.add(jMenuItem7);
 
-        jMenuItem8.setText("FASE   8");
+        jMenuItem8.setText("FASE  8");
         jMenu1.add(jMenuItem8);
 
-        jMenuItem9.setText("FASE   9");
+        jMenuItem9.setText("FASE  9");
         jMenu1.add(jMenuItem9);
 
-        jMenuItem10.setText("FASE   10");
+        jMenuItem10.setText("FASE  10");
         jMenu1.add(jMenuItem10);
-
-        jMenuItem11.setText("FASE   11");
-        jMenu1.add(jMenuItem11);
-
-        jMenuItem12.setText("FASE   12");
-        jMenu1.add(jMenuItem12);
-
-        jMenuItem13.setText("FASE   13");
-        jMenu1.add(jMenuItem13);
-
-        jMenuItem14.setText("FASE   14");
-        jMenu1.add(jMenuItem14);
-
-        jMenuItem15.setText("FASE   15");
-        jMenu1.add(jMenuItem15);
 
         jMenuBar1.add(jMenu1);
 
-<<<<<<< HEAD
         jMenu2.setText("AJUDA");
-=======
-        jMenu2.setText("SOBRE");
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(821, 670));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyReleased
-<<<<<<< HEAD
-        
         erros = acertos=0;
                 
         arrayDigitado = txtEntrada.getText().toCharArray();
         
         //Condição que aciona o evento de termino da atividade
         if(arrayDigitado.length == arrayPraDigitar.length){
-            terminarExercicio();
+            terminarExercicio();            
+            
             txtEntrada.setEditable(false);
         }
             
@@ -469,21 +368,6 @@ public class Exercicio extends javax.swing.JFrame {
         //O for repete até o numero i for menor que o array digitado e o pra digitar
         for(int i=0;i<arrayDigitado.length && i<arrayPraDigitar.length;i++)
             if(arrayDigitado[i] == arrayPraDigitar[i]){  //System.out.println("Caracter: "+arrayDigitado[i]+" Codigo: "arrayDigitado[i].getCharCode());
-=======
-        acertos=0;
-        erros=0;
-                
-        arrayDigitado = txtEntrada.getText().toCharArray();
-        
-        //Reescreve o exto se ele for mudado
-        if( txtAnterior.length() > txtEntrada.getText().length() ||
-            txtEntrada.getText().length() >= txtSaida.getText().length()
-          )txtEntrada.setText(txtAnterior);            
-        
-        //Analisa o texto e pinta o resultado
-        for(int i=0;i<arrayDigitado.length;i++)      
-            if(arrayDigitado[i] == arrayPraDigitar[i]){
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
                 doc.setCharacterAttributes(i, 1, greenStyle, false);
                 acertos++;
                 qtdAcertos.setText(Integer.toString(acertos));
@@ -492,11 +376,10 @@ public class Exercicio extends javax.swing.JFrame {
                 erros++;
                 qtdErros.setText(Integer.toString(erros));
             }
-<<<<<<< HEAD
             
             txtAnterior = txtEntrada.getText();
-            vez++;
-            System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
+            //vez++;
+            //System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
     }//GEN-LAST:event_txtEntradaKeyReleased
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -505,12 +388,6 @@ public class Exercicio extends javax.swing.JFrame {
         dispose();        
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-=======
-        
-        txtAnterior = txtEntrada.getText();
-    }//GEN-LAST:event_txtEntradaKeyReleased
-
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -519,7 +396,6 @@ public class Exercicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-<<<<<<< HEAD
     private void txtEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyPressed
         
         //Reescreve o texto se ele for mudado
@@ -528,67 +404,61 @@ public class Exercicio extends javax.swing.JFrame {
           )txtEntrada.setText(txtAnterior);
         
         txtAnterior = txtEntrada.getText();
-        vez++;
-        System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
+        //vez++;
+        //System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
     }//GEN-LAST:event_txtEntradaKeyPressed
-=======
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
- MenuExer obj = new MenuExer();
-     
-         obj.setVisible(true);
-         
-         dispose();
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
 
-    }//GEN-LAST:event_btnVoltarActionPerformed
+    private void txtEntradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyTyped
+        //Reescreve o exto se ele for mudado
+        if(txtAnterior.length() > txtEntrada.getText().length() ||
+            txtEntrada.getText().length() > txtSaida.getText().length()
+          )txtEntrada.setText(txtAnterior);
+        
+        txtAnterior = txtEntrada.getText();
+        //vez++;
+        //System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
+    }//GEN-LAST:event_txtEntradaKeyTyped
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-<<<<<<< HEAD
-        pauseClock();
         
+        pauseClock();
         //JOptionPane.showConfirmDialog Para confirmar o reinicio
-        if(JOptionPane.showConfirmDialog(null ,"Tem certeza que deseja Reiniciar o Exercício?", "Reiniciar",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            //txtSaida.setBackground(Color.black);
-            txtSaida.setVisible(true);
-            
-            doc.setCharacterAttributes(0, txtSaida.getText().length()-1, defaultStyle, false); //Muda o atriuto de um caractere (No nosso caso ele irá mudar a cor)
-                
-            txtAnterior = "";
-            txtEntrada.setText("");
-
-            qtdAcertos.setText(" - ");
-            qtdErros.setText(" - ");
-            
-            //Reiniciar o tempo
-            contador = 0;
-            duracao.setText("- : -");
-            
+        if(iniciado)
+            if(JOptionPane.showConfirmDialog(null ,"Tem certeza que deseja Reiniciar o Exercício?", "Reiniciar",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                iniciaExercicio();
+            else
+                startClock();
+        else 
             iniciaExercicio();
-            startClock();
-        }    
+        
+        vez++;
+        System.out.println(vez+"º Iniciado: "+iniciado+" Executando: "+execucaoExercicio);
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         if(!iniciado && !execucaoExercicio){
             iniciaExercicio();
-            startClock();
         }
     }//GEN-LAST:event_btnIniciarActionPerformed
 
-    private void btnPausarContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarContinuarActionPerformed
+    private void btnIniciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciar1ActionPerformed
+        if(iniciado)
         if(execucaoExercicio){
             pausarExercicio();
-            btnPausarContinuar.setText("CONTINUAR");
+            btnIniciar1.setText("CONTINUAR");
         }else{
-            if(iniciado){
                 continuarExercicio();
-                btnPausarContinuar.setText("PAUSAR");
-            }        
-        }
-    }//GEN-LAST:event_btnPausarContinuarActionPerformed
+                btnIniciar1.setText("PAUSAR");       
+        }else btnIniciar1.setText("PAUSAR");
+        
+        vez++;
+        System.out.println(vez+"º Iniciado: "+iniciado+" Executando: "+execucaoExercicio+" Rodando: "+rodando);
+                   
+    }//GEN-LAST:event_btnIniciar1ActionPerformed
     
     //Metodo do Iniciar Relogio Relógio
     public void startClock(){
+        System.out.println("Rodando: "+rodando);
         if(!rodando){
             rodando = true;
             tm = new Timer();
@@ -601,14 +471,17 @@ public class Exercicio extends javax.swing.JFrame {
                    min %= 60;//Pra ficar somente os minutos
                    //contagemTempo.setText();//altera o texto da label
                    duracao.setText(String.format("%02d:%02d", min, seg));
+                   vez++;
+                   System.out.println("Entrei no Timer"+min+" e "+seg);
+                   System.out.println(vez+"º Iniciado: "+iniciado+" Executando: "+execucaoExercicio+" Rodando: "+rodando);
                }
-            }, 1000, 1000);
+            }, 0, 1000);
         }
     }
     
     //Metodo do Iniciar Relogio Relógio
     public void stopClock(){
-        if(!rodando){
+        if(rodando){
             tm.cancel();
             contador=0;
             rodando = false;
@@ -624,17 +497,32 @@ public class Exercicio extends javax.swing.JFrame {
     }
     
     public void iniciaExercicio(){
-        if(!iniciado)
-            iniciado = !iniciado;
-
+        iniciado = true;
         execucaoExercicio = true;
+        
+        txtSaida.setVisible(true);
+        //doc.setCharacterAttributes(0, txtSaida.getText().length()-1, defaultStyle, false); //Muda o atriuto de um caractere (No nosso caso ele irá mudar a cor)
+
+        txtAnterior = "";
+        txtEntrada.setText("");
+
+        qtdAcertos.setText(" - ");
+        qtdErros.setText(" - ");
+
+        //Reiniciar o tempo
+        contador = 0;
+        duracao.setText("- : -");
+        
+        
         txtEntrada.setEditable(true);
 
         txtPraDigitar = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
         arrayPraDigitar = txtPraDigitar.toCharArray(); //Guarda o texto que deve ser digitado
         txtSaida.setText(txtPraDigitar);
 
-        txtEntrada.grabFocus();   
+        txtEntrada.grabFocus();
+        
+        startClock();
     }
     
     public void pausarExercicio(){  
@@ -651,9 +539,10 @@ public class Exercicio extends javax.swing.JFrame {
     }
     
     public void terminarExercicio(){
+        iniciado = false;
+        execucaoExercicio = false;
         pauseClock();
         txtSaida.setVisible(false);
-        iniciado = false;
         
         //JPanel jPanelTelaRelatorio = new javax.swing.JPanel();
         //JLabel titulo = new javax.swing.JLabel();
@@ -666,7 +555,7 @@ public class Exercicio extends javax.swing.JFrame {
         JLabel jLabelWpm = new javax.swing.JLabel();
         JLabel wpm = new javax.swing.JLabel();
         JLabel jLabelDuracao = new javax.swing.JLabel();
-        duracao = new javax.swing.JLabel();    
+        JLabel duracaoRelatorio = new javax.swing.JLabel();    
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -700,8 +589,8 @@ public class Exercicio extends javax.swing.JFrame {
         jLabelDuracao.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabelDuracao.setText("DURAÇÃO");
 
-        duracao.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        duracao.setText("2:35");
+        duracaoRelatorio.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        duracaoRelatorio.setText("2:35");
 
         javax.swing.GroupLayout dadosRelatorioLayout = new javax.swing.GroupLayout(display);
         display.setLayout(dadosRelatorioLayout);
@@ -719,7 +608,7 @@ public class Exercicio extends javax.swing.JFrame {
                 .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lNome)
                     .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(duracao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(duracaoRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(wpm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(qtdAcerto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(qtdErro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -747,16 +636,11 @@ public class Exercicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDuracao)
-                    .addComponent(duracao))
+                    .addComponent(duracaoRelatorio))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
     }
     
-=======
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReiniciarActionPerformed
-
->>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
     public static void main(String args[]) {        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -794,22 +678,16 @@ public class Exercicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;
-    private javax.swing.JButton btnPausarContinuar;
+    private javax.swing.JButton btnIniciar1;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel display;
     private javax.swing.JLabel duracao;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -820,6 +698,7 @@ public class Exercicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private java.awt.Label label1;
