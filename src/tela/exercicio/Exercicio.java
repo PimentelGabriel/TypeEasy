@@ -4,22 +4,25 @@ import java.awt.Color;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
-import tela.jogo.MenuJogo;
 
-import javax.swing.JOptionPane;
-
+/**
+ *
+ * @author UEPA-LAB6-PC04
+ */
 public class Exercicio extends javax.swing.JFrame {
-    int erros=0, acertos=0, vez=0;
+    int erros=0, acertos=0;
     
-    String txtAnterior = ""; //Guarda o estado anterior do texto digitado para infrigir as regras do sistema por exemplo excluir um caractere
+    String txtAnterior = "";
     
-    char[] arrayDigitado; //Guada o texto de entrada
+    char[] arrayDigitado;
      
-    String a = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
-    char[] arrayPraDigitar = a.toCharArray(); //Guarda o texto que deve ser digitado
+    String a = new String("Bola casa pato mesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
+    char[] arrayPraDigitar = a.toCharArray();
     
+    //String coloridas para imprimir
+    String txtAnalisado;
     
-    //Cria um StyleContext e um Document para o jtextpane
+    // cria um StyleContext e um Document para o jtextpane
     StyleContext sc = new StyleContext();
     final DefaultStyledDocument doc = new DefaultStyledDocument(sc);
 
@@ -60,9 +63,9 @@ public class Exercicio extends javax.swing.JFrame {
         qtdErros = new javax.swing.JLabel();
         label3 = new java.awt.Label();
         qtdAcertos = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
         btnReiniciar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -75,19 +78,21 @@ public class Exercicio extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        jPanel1.setLayout(null);
 
         txtEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtEntradaKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEntradaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtEntradaKeyTyped(evt);
             }
         });
         jScrollPane1.setViewportView(txtEntrada);
@@ -115,112 +120,93 @@ public class Exercicio extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(176, 176, 176)
                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(10, 10, 10)
                         .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(10, 10, 10)
                         .addComponent(qtdErros, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(142, 142, 142))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(10, 10, 10)
+                        .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(qtdErros, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1)))
+                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(qtdErros, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         label1.getAccessibleContext().setAccessibleDescription("");
 
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(110, 31, 687, 500);
+
+        btnReiniciar.setBackground(new java.awt.Color(0, 0, 0));
+        btnReiniciar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnReiniciar.setForeground(new java.awt.Color(51, 153, 255));
         btnReiniciar.setText("REINICIAR");
         btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReiniciarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnReiniciar);
+        btnReiniciar.setBounds(540, 540, 110, 50);
 
+        btnVoltar.setBackground(new java.awt.Color(0, 0, 0));
+        btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnVoltar.setForeground(new java.awt.Color(51, 153, 255));
         btnVoltar.setText("VOLTAR");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnVoltar);
+        btnVoltar.setBounds(680, 540, 110, 50);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(505, Short.MAX_VALUE)
-                .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVoltar)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(51, 153, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imj/tecladoexerc.png"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 0, 810, 610);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 810, 610);
 
-        jMenu1.setText("FASES");
+        jMenuBar1.setBackground(new java.awt.Color(51, 51, 51));
+        jMenuBar1.setForeground(new java.awt.Color(51, 153, 255));
 
-        jMenuItem1.setText("FASE  1");
+        jMenu1.setText("           FASES        ");
+
+        jMenuItem1.setText("FASE   1");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -228,7 +214,7 @@ public class Exercicio extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("FASE  2");
+        jMenuItem2.setText("FASE   2");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -236,72 +222,69 @@ public class Exercicio extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("FASE  3");
+        jMenuItem3.setText("FASE   3");
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setText("FASE  4");
+        jMenuItem4.setText("FASE   4");
         jMenu1.add(jMenuItem4);
 
-        jMenuItem5.setText("FASE  5");
+        jMenuItem5.setText("FASE   5");
         jMenu1.add(jMenuItem5);
 
-        jMenuItem6.setText("FASE  6");
+        jMenuItem6.setText("FASE   6");
         jMenu1.add(jMenuItem6);
 
-        jMenuItem7.setText("FASE  7");
+        jMenuItem7.setText("FASE   7");
         jMenu1.add(jMenuItem7);
 
-        jMenuItem8.setText("FASE  8");
+        jMenuItem8.setText("FASE   8");
         jMenu1.add(jMenuItem8);
 
-        jMenuItem9.setText("FASE  9");
+        jMenuItem9.setText("FASE   9");
         jMenu1.add(jMenuItem9);
 
-        jMenuItem10.setText("FASE  10");
+        jMenuItem10.setText("FASE   10");
         jMenu1.add(jMenuItem10);
+
+        jMenuItem11.setText("FASE   11");
+        jMenu1.add(jMenuItem11);
+
+        jMenuItem12.setText("FASE   12");
+        jMenu1.add(jMenuItem12);
+
+        jMenuItem13.setText("FASE   13");
+        jMenu1.add(jMenuItem13);
+
+        jMenuItem14.setText("FASE   14");
+        jMenu1.add(jMenuItem14);
+
+        jMenuItem15.setText("FASE   15");
+        jMenu1.add(jMenuItem15);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("SOBRE");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
+        setSize(new java.awt.Dimension(821, 670));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyReleased
-        
         acertos=0;
         erros=0;
                 
         arrayDigitado = txtEntrada.getText().toCharArray();
         
-        //Condição que aciona o evento de termino da atividade
-        if(arrayDigitado.length == arrayPraDigitar.length)
-           
-            
         //Reescreve o exto se ele for mudado
-        if(txtAnterior.length() > txtEntrada.getText().length() ||
-            txtEntrada.getText().length() > txtSaida.getText().length()
-          )txtEntrada.setText(txtAnterior);
+        if( txtAnterior.length() > txtEntrada.getText().length() ||
+            txtEntrada.getText().length() >= txtSaida.getText().length()
+          )txtEntrada.setText(txtAnterior);            
         
         //Analisa o texto e pinta o resultado
-        //O for repete até o numero i for menor que o array digitado e o pra digitar
-        for(int i=0;i<arrayDigitado.length && i<arrayPraDigitar.length;i++)      
-            //System.out.println("Caracter: "+arrayDigitado[i]+" Codigo: "arrayDigitado[i].getCharCode());
+        for(int i=0;i<arrayDigitado.length;i++)      
             if(arrayDigitado[i] == arrayPraDigitar[i]){
                 doc.setCharacterAttributes(i, 1, greenStyle, false);
                 acertos++;
@@ -312,19 +295,8 @@ public class Exercicio extends javax.swing.JFrame {
                 qtdErros.setText(Integer.toString(erros));
             }
         
-            txtAnterior = txtEntrada.getText();
-            vez++;
-            System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
+        txtAnterior = txtEntrada.getText();
     }//GEN-LAST:event_txtEntradaKeyReleased
-
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        MenuExer obj = new MenuExer();
-     
-         obj.setVisible(true);
-         
-         dispose();
-
-    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -334,44 +306,19 @@ public class Exercicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void txtEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyPressed
-        //Reescreve o exto se ele for mudado
-        if(txtAnterior.length() > txtEntrada.getText().length() ||
-            txtEntrada.getText().length() > txtSaida.getText().length()
-          )txtEntrada.setText(txtAnterior);
-        
-        txtAnterior = txtEntrada.getText();
-        vez++;
-        System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
-    }//GEN-LAST:event_txtEntradaKeyPressed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+ MenuExer obj = new MenuExer();
+     
+         obj.setVisible(true);
+         
+         dispose();
 
-    private void txtEntradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyTyped
-        //Reescreve o exto se ele for mudado
-        if(txtAnterior.length() > txtEntrada.getText().length() ||
-            txtEntrada.getText().length() > txtSaida.getText().length()
-          )txtEntrada.setText(txtAnterior);
-        
-        txtAnterior = txtEntrada.getText();
-        vez++;
-        System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
-    }//GEN-LAST:event_txtEntradaKeyTyped
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        //JOptionPane.showConfirmDialog Para confirmar o reinicio
-        if (JOptionPane.showConfirmDialog(null ,"Tem certeza que deseja Reiniciar o Exercício?", "Reiniciar",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            txtAnterior = "";
-            txtEntrada.setText("");
-
-            qtdAcertos.setText(" - ");
-            qtdErros.setText(" - ");
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
-    /*
-    Digitado: as
-    Anterior: asd
-    */
-    
     public static void main(String args[]) {        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -411,11 +358,17 @@ public class Exercicio extends javax.swing.JFrame {
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel duracao;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -426,7 +379,6 @@ public class Exercicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private java.awt.Label label1;
