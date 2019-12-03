@@ -299,7 +299,7 @@
                           <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
                           <Component id="btnIniciar" min="-2" pref="89" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnIniciar1" min="-2" pref="89" max="-2" attributes="0"/>
+                          <Component id="btnPausarContinuar" min="-2" pref="89" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnReiniciar" min="-2" pref="89" max="-2" attributes="0"/>
                           <EmptySpace pref="250" max="32767" attributes="0"/>
@@ -315,7 +315,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnReiniciar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                               <Component id="btnVoltar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="btnIniciar1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="btnPausarContinuar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                               <Component id="btnIniciar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -348,12 +348,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnIniciar1">
+                <Component class="javax.swing.JButton" name="btnPausarContinuar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="PAUSAR"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciar1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPausarContinuarActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

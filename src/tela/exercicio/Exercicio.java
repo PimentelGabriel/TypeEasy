@@ -82,7 +82,7 @@ public class Exercicio extends javax.swing.JFrame {
         btnReiniciar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnIniciar = new javax.swing.JButton();
-        btnIniciar1 = new javax.swing.JButton();
+        btnPausarContinuar = new javax.swing.JButton();
         label4 = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -168,10 +168,10 @@ public class Exercicio extends javax.swing.JFrame {
             }
         });
 
-        btnIniciar1.setText("PAUSAR");
-        btnIniciar1.addActionListener(new java.awt.event.ActionListener() {
+        btnPausarContinuar.setText("PAUSAR");
+        btnPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIniciar1ActionPerformed(evt);
+                btnPausarContinuarActionPerformed(evt);
             }
         });
 
@@ -183,7 +183,7 @@ public class Exercicio extends javax.swing.JFrame {
                 .addGap(151, 151, 151)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
@@ -197,7 +197,7 @@ public class Exercicio extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -354,8 +354,7 @@ public class Exercicio extends javax.swing.JFrame {
         
         //Condição que aciona o evento de termino da atividade
         if(arrayDigitado.length == arrayPraDigitar.length){
-            terminarExercicio();            
-            
+            terminarExercicio();
             txtEntrada.setEditable(false);
         }
             
@@ -452,17 +451,17 @@ public class Exercicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIniciarActionPerformed
 
-    private void btnIniciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciar1ActionPerformed
+    private void btnPausarContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarContinuarActionPerformed
         if(execucaoExercicio){
             pausarExercicio();
-            btnIniciar1.setText("CONTINUAR");
+            btnPausarContinuar.setText("CONTINUAR");
         }else{
             if(iniciado){
                 continuarExercicio();
-                btnIniciar1.setText("PAUSAR");
+                btnPausarContinuar.setText("PAUSAR");
             }        
         }
-    }//GEN-LAST:event_btnIniciar1ActionPerformed
+    }//GEN-LAST:event_btnPausarContinuarActionPerformed
     
     //Metodo do Iniciar Relogio Relógio
     public void startClock(){
@@ -511,8 +510,7 @@ public class Exercicio extends javax.swing.JFrame {
         arrayPraDigitar = txtPraDigitar.toCharArray(); //Guarda o texto que deve ser digitado
         txtSaida.setText(txtPraDigitar);
 
-        txtEntrada.grabFocus();
-        
+        txtEntrada.grabFocus();   
     }
     
     public void pausarExercicio(){  
@@ -531,6 +529,7 @@ public class Exercicio extends javax.swing.JFrame {
     public void terminarExercicio(){
         pauseClock();
         txtSaida.setVisible(false);
+        iniciado = false;
         
         //JPanel jPanelTelaRelatorio = new javax.swing.JPanel();
         //JLabel titulo = new javax.swing.JLabel();
@@ -666,7 +665,7 @@ public class Exercicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;
-    private javax.swing.JButton btnIniciar1;
+    private javax.swing.JButton btnPausarContinuar;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel display;
