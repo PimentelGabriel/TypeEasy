@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/D:/Documents/TypeEasy-master/src/tela/exercicio/RelatorioExercicio.java</file>
+            <file>file:/D:/Documents/TypeEasy-master/src/tela/TelaMenu.java</file>
+            <file>file:/D:/Documents/TypeEasy-master/src/tela/jogo/TelaJogo.java</file>
+            <file>file:/D:/Documents/TypeEasy-master/src/tela/exercicio/MenuExer.java</file>
+            <file>file:/D:/Documents/TypeEasy-master/src/tela/exercicio/Exercicio.java</file>
+            <file>file:/D:/Documents/TypeEasy-master/src/tela/jogo/MenuJogo.java</file>
+        </group>
+>>>>>>> 02640a15f78b6231be804f57926c9636743c8a9c
     </open-files>
 </project-private>
