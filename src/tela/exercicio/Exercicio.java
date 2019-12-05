@@ -86,16 +86,16 @@ public class Exercicio extends javax.swing.JFrame {
         label4 = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        fase1 = new javax.swing.JMenuItem();
+        fase2 = new javax.swing.JMenuItem();
+        fase3 = new javax.swing.JMenuItem();
+        fase4 = new javax.swing.JMenuItem();
+        fase5 = new javax.swing.JMenuItem();
+        fase6 = new javax.swing.JMenuItem();
+        fase7 = new javax.swing.JMenuItem();
+        fase8 = new javax.swing.JMenuItem();
+        fase9 = new javax.swing.JMenuItem();
+        fase10 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -284,45 +284,60 @@ public class Exercicio extends javax.swing.JFrame {
 
         jMenu1.setText("FASES");
 
-        jMenuItem1.setText("FASE  1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        fase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        fase1.setText("FASE  1");
+        fase1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                fase1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(fase1);
 
-        jMenuItem2.setText("FASE  2");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        fase2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        fase2.setText("FASE  2");
+        fase2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                fase2ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(fase2);
 
-        jMenuItem3.setText("FASE  3");
-        jMenu1.add(jMenuItem3);
+        fase3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        fase3.setText("FASE  3");
+        jMenu1.add(fase3);
 
-        jMenuItem4.setText("FASE  4");
-        jMenu1.add(jMenuItem4);
+        fase4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        fase4.setText("FASE  4");
+        jMenu1.add(fase4);
 
-        jMenuItem5.setText("FASE  5");
-        jMenu1.add(jMenuItem5);
+        fase5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        fase5.setText("FASE  5");
+        fase5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(fase5);
 
-        jMenuItem6.setText("FASE  6");
-        jMenu1.add(jMenuItem6);
+        fase6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        fase6.setText("FASE  6");
+        jMenu1.add(fase6);
 
-        jMenuItem7.setText("FASE  7");
-        jMenu1.add(jMenuItem7);
+        fase7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        fase7.setText("FASE  7");
+        jMenu1.add(fase7);
 
-        jMenuItem8.setText("FASE  8");
-        jMenu1.add(jMenuItem8);
+        fase8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
+        fase8.setText("FASE  8");
+        jMenu1.add(fase8);
 
-        jMenuItem9.setText("FASE  9");
-        jMenu1.add(jMenuItem9);
+        fase9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
+        fase9.setText("FASE  9");
+        jMenu1.add(fase9);
 
-        jMenuItem10.setText("FASE  10");
-        jMenu1.add(jMenuItem10);
+        fase10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, 0));
+        fase10.setText("FASE  10");
+        jMenu1.add(fase10);
 
         jMenuBar1.add(jMenu1);
 
@@ -388,13 +403,13 @@ public class Exercicio extends javax.swing.JFrame {
         dispose();        
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void fase1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_fase1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void fase2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_fase2ActionPerformed
 
     private void txtEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyPressed
         
@@ -455,6 +470,10 @@ public class Exercicio extends javax.swing.JFrame {
         System.out.println(vez+"º Iniciado: "+iniciado+" Executando: "+execucaoExercicio+" Rodando: "+rodando);
                    
     }//GEN-LAST:event_btnIniciar1ActionPerformed
+
+    private void fase5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fase5ActionPerformed
     
     //Metodo do Iniciar Relogio Relógio
     public void startClock(){
@@ -683,19 +702,19 @@ public class Exercicio extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel display;
     private javax.swing.JLabel duracao;
+    private javax.swing.JMenuItem fase1;
+    private javax.swing.JMenuItem fase10;
+    private javax.swing.JMenuItem fase2;
+    private javax.swing.JMenuItem fase3;
+    private javax.swing.JMenuItem fase4;
+    private javax.swing.JMenuItem fase5;
+    private javax.swing.JMenuItem fase6;
+    private javax.swing.JMenuItem fase7;
+    private javax.swing.JMenuItem fase8;
+    private javax.swing.JMenuItem fase9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
