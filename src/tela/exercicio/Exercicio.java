@@ -21,7 +21,7 @@ public class Exercicio extends javax.swing.JFrame {
     //Variveis do relatorio
     String nomeUser;
     int errosTotal, acertoTotal, nivelAtual=0;
-    float tempo, letraPorMinuto;
+    int tempo, letraPorMinuto;
     
     private boolean exeFeito[][] = {
         { false,
@@ -106,6 +106,8 @@ public class Exercicio extends javax.swing.JFrame {
         nomeUser = TelaMenu.nome;
         nivelAtual = MenuExer.nivel;
         System.out.println(nivelAtual);
+        
+        
         //Gera o primeiro exercicio pro default
         /*
         fases = new ArrayList<Fase>();
@@ -137,6 +139,8 @@ public class Exercicio extends javax.swing.JFrame {
         greenStyle.addAttribute(StyleConstants.Background, Color.green);
         defaultStyle.addAttribute(StyleConstants.Background, Color.WHITE);
         
+        this.setTitle("Nivel "+(nivelAtual+1)+ " Exercicio "+faseAtual.getExercicio());
+        tituloExercicio.setText("Nivel "+(nivelAtual+1)+ " Exercicio "+faseAtual.getExercicio());
     }
 
     /**
@@ -167,7 +171,7 @@ public class Exercicio extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JButton();
         btnIniciar = new javax.swing.JButton();
         btnIniciar1 = new javax.swing.JButton();
-        label4 = new java.awt.Label();
+        tituloExercicio = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         fase1 = new javax.swing.JMenuItem();
@@ -352,9 +356,9 @@ public class Exercicio extends javax.swing.JFrame {
 
         label1.getAccessibleContext().setAccessibleDescription("");
 
-        label4.setAlignment(java.awt.Label.CENTER);
-        label4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        label4.setText("Titulo do Exercicio");
+        tituloExercicio.setAlignment(java.awt.Label.CENTER);
+        tituloExercicio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tituloExercicio.setText("Titulo do Exercicio");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -366,14 +370,14 @@ public class Exercicio extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tituloExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(270, 270, 270))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                .addComponent(tituloExercicio, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(display3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -532,8 +536,7 @@ public class Exercicio extends javax.swing.JFrame {
         
         //Condição que aciona o evento de termino da atividade
         if(arrayDigitado.length >= arrayPraDigitar.length){
-            terminarExercicio();            
-            
+            terminarExercicio();
             txtEntrada.setEditable(false);
         }
             
@@ -590,22 +593,8 @@ public class Exercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_fase1ActionPerformed
 
     private void fase2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase2ActionPerformed
-        
         gerarFase(1);
         preparaExercicio();
-        /*
-        //Se esa fase ainda não foi instanciada (acessada) e faz instancia e joga no ArrayList
-        int nv=1, exe=2;
-        int i=nv-1, j=exe-1;
-        
-        if(exeFeito[i][j] == false){
-            fases.add(new Fase(nv, exe));
-            fases.get(fases.size()-1).setIndex(fases.size()-1);
-            exeFeito[i][j] = true;
-        }
-        //Coloca o objeto do array num objeto faseAtual
-        faseAtual = getObj(nv, exe);
-        */
     }//GEN-LAST:event_fase2ActionPerformed
 
     private void txtEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyPressed
@@ -776,6 +765,9 @@ public class Exercicio extends javax.swing.JFrame {
         //Reiniciar o tempo
         contador = 0;
         duracao.setText("- : -");
+        
+        this.setTitle("Nivel "+(nivelAtual+1)+ " Exercicio "+faseAtual.getExercicio());
+        tituloExercicio.setText("Nivel "+(nivelAtual+1)+ " Exercicio "+faseAtual.getExercicio());
     }
     
     public void iniciaExercicio(){
@@ -843,202 +835,10 @@ public class Exercicio extends javax.swing.JFrame {
             letraPorMinuto = arrayPraDigitar.length/contador;
         }
 
-        //JPanel jPanelTelaRelatorio = new javax.swing.JPanel();
-        //JLabel titulo = new javax.swing.JLabel();
-        JLabel jLabelNome = new javax.swing.JLabel();
-        JLabel lNome = new javax.swing.JLabel();
-        JLabel JLabelqtdErro = new javax.swing.JLabel();
-        JLabel jLabelqtdAcerto = new javax.swing.JLabel();
-        JLabel qtdErro = new javax.swing.JLabel();
-        JLabel qtdAcerto = new javax.swing.JLabel();
-        JLabel jLabelWpm = new javax.swing.JLabel();
-        JLabel wpm = new javax.swing.JLabel();
-        JLabel jLabelDuracao = new javax.swing.JLabel();
-        JLabel duracaoRelatorio = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        //titulo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
-        //titulo.setText("RELATÓRIO FASE 01");
-        jLabelNome.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelNome.setText("NOME");
-
-        lNome.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        lNome.setText(nomeUser);
-
-        JLabelqtdErro.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        JLabelqtdErro.setText("TAXA DE ERROS");
-
-        jLabelqtdAcerto.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelqtdAcerto.setText("TAXA DE ACERTOS");
-
-        qtdErro.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        qtdErro.setText(qtdErros.getText()==" - "?"0":qtdErros.getText());
-
-        qtdAcerto.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        qtdAcerto.setText(qtdAcertos.getText()==" - "?"0":qtdAcertos.getText());
-
-        jLabelWpm.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelWpm.setText("WPM");
-
-        wpm.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        wpm.setText(letraPorMinuto+" Caracter/Minuto");
-
-        jLabelDuracao.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelDuracao.setText("DURAÇÃO");
-
-        duracaoRelatorio.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        duracaoRelatorio.setText(tempo+"s");
-
-        javax.swing.GroupLayout dadosRelatorioLayout = new javax.swing.GroupLayout(display);
-        display.setLayout(dadosRelatorioLayout);
-        dadosRelatorioLayout.setHorizontalGroup(
-                dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(dadosRelatorioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelqtdAcerto)
-                                .addComponent(JLabelqtdErro)
-                                .addComponent(jLabelWpm)
-                                .addComponent(jLabelNome)
-                                .addComponent(jLabelDuracao))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lNome)
-                                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(duracaoRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(wpm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(qtdAcerto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(qtdErro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18))
-        );
-        dadosRelatorioLayout.setVerticalGroup(
-                dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(dadosRelatorioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelNome)
-                                .addComponent(lNome))
-                        .addGap(11, 11, 11)
-                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(JLabelqtdErro)
-                                .addComponent(qtdErro))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelqtdAcerto)
-                                .addComponent(qtdAcerto))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelWpm)
-                                .addComponent(wpm))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelDuracao)
-                                .addComponent(duracaoRelatorio))
-                        .addContainerGap(67, Short.MAX_VALUE))
-        );
         
-        
-        
-        
-        
-        
-        /*
-        //JPanel jPanelTelaRelatorio = new javax.swing.JPanel();
-        //JLabel titulo = new javax.swing.JLabel();
-        JLabel jLabelNome = new javax.swing.JLabel();
-        JLabel lNome = new javax.swing.JLabel();
-        JLabel JLabelqtdErro = new javax.swing.JLabel();
-        JLabel jLabelqtdAcerto = new javax.swing.JLabel();
-        JLabel qtdErro = new javax.swing.JLabel();
-        JLabel qtdAcerto = new javax.swing.JLabel();
-        JLabel jLabelWpm = new javax.swing.JLabel();
-        JLabel wpm = new javax.swing.JLabel();
-        JLabel jLabelDuracao = new javax.swing.JLabel();
-        JLabel duracaoRelatorio = new javax.swing.JLabel();    
-        
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        //titulo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
-        //titulo.setText("RELATÓRIO FASE 01");
-
-        jLabelNome.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelNome.setText("NOME");
-
-        lNome.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        lNome.setText("PIMENTEL");
-
-        JLabelqtdErro.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        JLabelqtdErro.setText("TAXA DE ERROS");
-
-        jLabelqtdAcerto.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelqtdAcerto.setText("TAXA DE ACERTOS");
-
-        qtdErro.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        qtdErro.setText("05");
-
-        qtdAcerto.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        qtdAcerto.setText("40");
-
-        jLabelWpm.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelWpm.setText("WPM");
-
-        wpm.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        wpm.setText("100");
-
-        jLabelDuracao.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabelDuracao.setText("DURAÇÃO");
-
-        duracaoRelatorio.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
-        duracaoRelatorio.setText("2:35");
-
-        javax.swing.GroupLayout dadosRelatorioLayout = new javax.swing.GroupLayout(display);
-        display.setLayout(dadosRelatorioLayout);
-        dadosRelatorioLayout.setHorizontalGroup(
-            dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dadosRelatorioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelqtdAcerto)
-                    .addComponent(JLabelqtdErro)
-                    .addComponent(jLabelWpm)
-                    .addComponent(jLabelNome)
-                    .addComponent(jLabelDuracao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lNome)
-                    .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(duracaoRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(wpm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(qtdAcerto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(qtdErro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
-        );
-        dadosRelatorioLayout.setVerticalGroup(
-            dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dadosRelatorioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNome)
-                    .addComponent(lNome))
-                .addGap(11, 11, 11)
-                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLabelqtdErro)
-                    .addComponent(qtdErro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelqtdAcerto)
-                    .addComponent(qtdAcerto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelWpm)
-                    .addComponent(wpm))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDuracao)
-                    .addComponent(duracaoRelatorio))
-                .addContainerGap(67, Short.MAX_VALUE))
-        );*/
+        RelatorioExercicio obj = new RelatorioExercicio(nomeUser, qtdErros.getText(), qtdAcertos.getText(),letraPorMinuto, tempo, faseAtual.getNivel(), faseAtual.getExercicio());
+        obj.setVisible(true); 
+        dispose();
     }
     
     public static void main(String args[]) {        
@@ -1105,9 +905,9 @@ public class Exercicio extends javax.swing.JFrame {
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
-    private java.awt.Label label4;
     private javax.swing.JLabel qtdAcertos;
     private javax.swing.JLabel qtdErros;
+    private java.awt.Label tituloExercicio;
     private javax.swing.JTextPane txtEntrada;
     private javax.swing.JTextPane txtSaida;
     // End of variables declaration//GEN-END:variables
