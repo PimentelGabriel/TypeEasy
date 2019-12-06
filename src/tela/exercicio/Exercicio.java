@@ -107,16 +107,8 @@ public class Exercicio extends javax.swing.JFrame {
         nivelAtual = MenuExer.nivel;
         System.out.println(nivelAtual);
         
-        
-        //Gera o primeiro exercicio pro default
-        /*
         fases = new ArrayList<Fase>();
-        fases.add(new Fase(0, 0));
-        fases.get(0).setIndex(0);
-        
-        */
-        fases = new ArrayList<Fase>();
-        
+        //Pre
         for(int i=0;i<10;i++){
             exeFeito[nivelAtual][i] = true;
             fases.add(new Fase(nivelAtual, i));
@@ -143,7 +135,6 @@ public class Exercicio extends javax.swing.JFrame {
         tituloExercicio.setText("Nivel "+(nivelAtual+1)+ " Exercicio "+faseAtual.getExercicio());
         
         txtEntrada.setAutoscrolls(false);
-        //txtEntrada.set
     }
 
     /**
@@ -512,26 +503,11 @@ public class Exercicio extends javax.swing.JFrame {
         execucaoExercicio = false;
         pauseClock();
         txtSaida.setVisible(false);
-        
-        //Se esa fase ainda não foi instanciada (acessada) e faz instancia e joga no ArrayList
-        //int i=nv-1, j=exe-1;
-        System.out.println(fases.isEmpty()+" Tamanho: "+fases.size());
-        System.out.println(fases.get(index).getJ()+" | "+fases.get(index).getI());
-        /*
-        if(exeFeito[i][j] == false){
-            
-            fases = new ArrayList<Fase>();
-            fases.add(new Fase(i, j));
-            fases.get(fases.size()-1).setIndex(fases.size()-1);
-            
-            
-        }
-        */
+
+        //Mapeia os exercios realizados
         exeFeito[fases.get(index).getI()][fases.get(index).getJ()] = true;
         //Coloca o objeto do array num objeto faseAtual
         faseAtual = fases.get(index);
-        System.out.println(faseAtual.getIndex());
-        //txtPraDigitar = faseN1E1.getTxt();
     }
     
     private void txtEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyReleased
@@ -539,7 +515,7 @@ public class Exercicio extends javax.swing.JFrame {
                 
         arrayDigitado = txtEntrada.getText().toCharArray();
         
-        //Condição que aciona o evento de termino da atividade
+        //Condição que aciona o metodo de término da atividade
         if(arrayDigitado.length >= arrayPraDigitar.length){
             terminarExercicio();
             txtEntrada.setEditable(false);
@@ -551,22 +527,21 @@ public class Exercicio extends javax.swing.JFrame {
             txtEntrada.getText().length() > arrayPraDigitar.length
           )txtEntrada.setText(txtAnterior);
         
-        //Analisa o texto e pinta o resultado
+        //Analisa o texto e printa o resultado
         //O for repete até o numero i for menor que o array digitado e o pra digitar
         for(int i=0;i<arrayDigitado.length && i<arrayPraDigitar.length;i++)
-            if(arrayDigitado[i] == arrayPraDigitar[i]){  //System.out.println("Caracter: "+arrayDigitado[i]+" Codigo: "arrayDigitado[i].getCharCode());
-                doc.setCharacterAttributes(i, 1, greenStyle, false);
+            if(arrayDigitado[i] == arrayPraDigitar[i]){  
+            	doc.setCharacterAttributes(i, 1, greenStyle, false);
+                //Muda o atriuto de um caractere (No nosso caso ele irá mudar a cor)
                 acertos++;
                 qtdAcertos.setText(Integer.toString(acertos));
             }else{
-                doc.setCharacterAttributes(i, 1, redStyle, false); //Muda o atriuto de um caractere (No nosso caso ele irá mudar a cor)
+                doc.setCharacterAttributes(i, 1, redStyle, false);
                 erros++;
                 qtdErros.setText(Integer.toString(erros));
             }
             
             txtAnterior = txtEntrada.getText();
-            //vez++;
-            //System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
     }//GEN-LAST:event_txtEntradaKeyReleased
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -576,25 +551,8 @@ public class Exercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void fase1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase1ActionPerformed
-        //terminarExercicio();
         gerarFase(0);
         preparaExercicio();
-        /*
-        fases = new ArrayList<Fase>();    
-        //Se esa fase ainda não foi instanciada (acessada) e faz instancia e joga no ArrayList
-        int nv=1, exe=1;
-        int i=nv-1, j=exe-1;
-        System.out.println(fases.isEmpty());
-        if(exeFeito[i][j] == false){
-            fases.add(new Fase(nv, exe));
-            fases.get(fases.size()-1).setIndex(fases.size()-1);
-            exeFeito[i][j] = true;
-        }
-        //Coloca o objeto do array num objeto faseAtual
-        faseAtual = getObj(nv, exe);     
-        System.out.println(faseAtual.getTxt());
-        //txtPraDigitar = faseN1E1.getTxt();
-        */
     }//GEN-LAST:event_fase1ActionPerformed
 
     private void fase2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase2ActionPerformed
@@ -610,8 +568,6 @@ public class Exercicio extends javax.swing.JFrame {
           )txtEntrada.setText(txtAnterior);
         
         txtAnterior = txtEntrada.getText();
-        //vez++;
-        //System.out.println(vez+"º Memoria: "+(txtAnterior.length()+1)+" = Digitado"+(txtEntrada.getText().length()+1));
     }//GEN-LAST:event_txtEntradaKeyPressed
 
     private void txtEntradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyTyped
@@ -706,7 +662,7 @@ public class Exercicio extends javax.swing.JFrame {
        
     }//GEN-LAST:event_fase1MouseReleased
     
-    //Metodo do Iniciar Relogio Relógio
+    //Metodo do Iniciar Relógio
     public void startClock(){
         System.out.println("Rodando: "+rodando);
         if(!rodando){
@@ -719,11 +675,7 @@ public class Exercicio extends javax.swing.JFrame {
                    int seg = contador%60;
                    int min = contador/60;
                    min %= 60;//Pra ficar somente os minutos
-                   //contagemTempo.setText();//altera o texto da label
                    duracao.setText(String.format("%02d:%02d", min, seg));
-                   vez++;
-                   System.out.println("Entrei no Timer"+min+" e "+seg);
-                   System.out.println(vez+"º Iniciado: "+iniciado+" Executando: "+execucaoExercicio+" Rodando: "+rodando);
                }
             }, 0, 1000);
         }
@@ -745,17 +697,6 @@ public class Exercicio extends javax.swing.JFrame {
             rodando = false;        
         }
     }
-    /*
-    public Fase getObj(int nivel, int exercicio){
-        for(Fase fase : fases) {
-            if (fase.getNivel() == nivel && fase.getExercicio() == exercicio) {
-                System.out.println("Gerou obj "+nivel+" | "+exercicio);
-                return fase;
-            }    
-        }
-        System.out.println("Erro objeto não encontrato");
-        return fases.get(0);
-    */
     
     public void preparaExercicio(){
         iniciado = false;
@@ -780,11 +721,9 @@ public class Exercicio extends javax.swing.JFrame {
         execucaoExercicio = true;
         
         txtSaida.setVisible(true);
-        //doc.setCharacterAttributes(0, txtSaida.getText().length()-1, defaultStyle, false); //Muda o atriuto de um caractere (No nosso caso ele irá mudar a cor)
 
         txtAnterior = "";
         txtEntrada.setText("");
-
         qtdAcertos.setText(" - ");
         qtdErros.setText(" - ");
 
@@ -795,12 +734,10 @@ public class Exercicio extends javax.swing.JFrame {
         
         txtEntrada.setEditable(true);
 
-        //txtPraDigitar = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
         txtPraDigitar = faseAtual.getTxt();
         System.out.println(txtPraDigitar);
         arrayPraDigitar = txtPraDigitar.toCharArray(); //Guarda o texto que deve ser digitado
         txtSaida.setText(txtPraDigitar);
-
         txtEntrada.grabFocus();
         
         startClock();
