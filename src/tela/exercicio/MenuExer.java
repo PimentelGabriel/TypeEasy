@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tela.exercicio;
 
 import tela.TelaMenu;
-
-/**
- *
- * @author jczec
- */
 public class MenuExer extends javax.swing.JFrame {
-
-    /**
-     * Creates new form MenuExe
-     */
+    static public int nivel=0;
+    
     public MenuExer() {
         initComponents();
     }
@@ -153,15 +142,30 @@ public class MenuExer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AMADORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AMADORActionPerformed
-        // TODO add your handling code here:
+        nivel = 1;
+        
+        Exercicio obj = new Exercicio();
+        obj.setVisible(true); 
+        dispose();
+        
     }//GEN-LAST:event_AMADORActionPerformed
 
     private void MEDIOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEDIOActionPerformed
-        // TODO add your handling code here:
+        nivel = 2;
+        
+        Exercicio obj = new Exercicio();
+        obj.setVisible(true); 
+        dispose();
+        
     }//GEN-LAST:event_MEDIOActionPerformed
 
     private void DIFICILActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DIFICILActionPerformed
-        // TODO add your handling code here:
+        nivel = 3;
+        
+        Exercicio obj = new Exercicio();
+        obj.setVisible(true); 
+        dispose();
+        
     }//GEN-LAST:event_DIFICILActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -169,12 +173,12 @@ public class MenuExer extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void INICIANTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INICIANTEActionPerformed
- Exercicio obj = new Exercicio();
-     
-         obj.setVisible(true);
-         
-         dispose();
-
+        nivel = 0;
+        
+        Exercicio obj = new Exercicio();
+        obj.setVisible(true); 
+        dispose();
+        
     }//GEN-LAST:event_INICIANTEActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

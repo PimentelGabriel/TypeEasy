@@ -15,12 +15,16 @@ import tela.jogo.MenuJogo;
  * @author UEPA-LAB6-PC02
  */
 public class TelaMenu extends javax.swing.JFrame {
-
-    /**
-     * Creates new form TelaMenu
-     */
+    static public String nome=null;
     public TelaMenu() {
         initComponents();
+        if (nome == null){
+            nome = JOptionPane.showInputDialog("Qual o seu nome?");
+            if (nome == null){
+                JOptionPane.showMessageDialog(null, "Você no modo de acesso Anônimo.");
+                nome = "Anônimo";
+            }
+        }
     }
 
     /**

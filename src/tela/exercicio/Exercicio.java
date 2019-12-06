@@ -1,6 +1,9 @@
 package tela.exercicio;
 
+import Ultilizacao.Fase;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -12,8 +15,66 @@ import javax.swing.JOptionPane;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import tela.TelaMenu;
 
 public class Exercicio extends javax.swing.JFrame {
+    //Variveis do relatorio
+    String nomeUser;
+    int errosTotal, acertoTotal, nivelAtual=0;
+    float tempo, letraPorMinuto;
+    
+    private boolean exeFeito[][] = {
+        { false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        },
+        { false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        },
+        { false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        },
+        { false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        },
+    };
+    
+    //Dados para serem usados na tela
+    Fase faseAtual;
+    
+    public List<Fase> fases;
+    
     
     //Variaveis do Relogio
     private boolean execucaoExercicio = false;
@@ -26,9 +87,7 @@ public class Exercicio extends javax.swing.JFrame {
     int erros=0, acertos=0, vez=0;
     
     String txtAnterior = ""; //Guarda o estado anterior do texto digitado para infrigir as regras do sistema por exemplo excluir um caractere
-    
-    char[] arrayDigitado; //Guada o texto de entrada
-     
+    char[] arrayDigitado; //Guada o texto de entrada     
     String txtPraDigitar;
     char[] arrayPraDigitar;
     
@@ -44,6 +103,30 @@ public class Exercicio extends javax.swing.JFrame {
     
     public Exercicio() {
         initComponents();
+        nomeUser = TelaMenu.nome;
+        nivelAtual = MenuExer.nivel;
+        System.out.println(nivelAtual);
+        //Gera o primeiro exercicio pro default
+        /*
+        fases = new ArrayList<Fase>();
+        fases.add(new Fase(0, 0));
+        fases.get(0).setIndex(0);
+        
+        */
+        fases = new ArrayList<Fase>();
+        
+        for(int i=0;i<10;i++){
+            exeFeito[nivelAtual][i] = true;
+            fases.add(new Fase(nivelAtual, i));
+            fases.get(i).setIndex(i);
+            fases.get(i).getTxt();
+            fases.get(i).setTxt(nivelAtual, i);
+            System.out.println(fases.get(i).getTxt());
+        }
+        
+        //Coloca o objeto do array num objeto faseAtual
+        faseAtual = fases.get(0);
+        
         
         txtSaida.setStyledDocument(doc);
         txtSaida.setEditable(false);
@@ -66,7 +149,7 @@ public class Exercicio extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        display3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtEntrada = new javax.swing.JTextPane();
         duracao = new javax.swing.JLabel();
@@ -76,7 +159,8 @@ public class Exercicio extends javax.swing.JFrame {
         label3 = new java.awt.Label();
         qtdAcertos = new javax.swing.JLabel();
         display = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         txtSaida = new javax.swing.JTextPane();
         jPanel6 = new javax.swing.JPanel();
         btnReiniciar = new javax.swing.JButton();
@@ -128,22 +212,35 @@ public class Exercicio extends javax.swing.JFrame {
         qtdAcertos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         qtdAcertos.setText("-");
 
-        jScrollPane3.setViewportView(txtSaida);
+        jScrollPane2.setViewportView(txtSaida);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout displayLayout = new javax.swing.GroupLayout(display);
         display.setLayout(displayLayout);
         displayLayout.setHorizontalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayLayout.createSequentialGroup()
+            .addGroup(displayLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         displayLayout.setVerticalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(displayLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -202,17 +299,17 @@ public class Exercicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout display3Layout = new javax.swing.GroupLayout(display3);
+        display3.setLayout(display3Layout);
+        display3Layout.setHorizontalGroup(
+            display3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(display3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(display3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(display3Layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, display3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,25 +326,25 @@ public class Exercicio extends javax.swing.JFrame {
             .addComponent(display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        display3Layout.setVerticalGroup(
+            display3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(display3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(display3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(display3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(qtdErros, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(display3Layout.createSequentialGroup()
+                        .addGroup(display3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(qtdAcertos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(1, 1, 1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
@@ -265,7 +362,7 @@ public class Exercicio extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(display3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -277,15 +374,20 @@ public class Exercicio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(display3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jMenu1.setText("FASES");
 
         fase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         fase1.setText("FASE  1");
+        fase1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                fase1MouseReleased(evt);
+            }
+        });
         fase1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fase1ActionPerformed(evt);
@@ -304,10 +406,20 @@ public class Exercicio extends javax.swing.JFrame {
 
         fase3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         fase3.setText("FASE  3");
+        fase3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(fase3);
 
         fase4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         fase4.setText("FASE  4");
+        fase4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(fase4);
 
         fase5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
@@ -321,22 +433,47 @@ public class Exercicio extends javax.swing.JFrame {
 
         fase6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         fase6.setText("FASE  6");
+        fase6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase6ActionPerformed(evt);
+            }
+        });
         jMenu1.add(fase6);
 
         fase7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         fase7.setText("FASE  7");
+        fase7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase7ActionPerformed(evt);
+            }
+        });
         jMenu1.add(fase7);
 
         fase8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
         fase8.setText("FASE  8");
+        fase8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase8ActionPerformed(evt);
+            }
+        });
         jMenu1.add(fase8);
 
         fase9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
         fase9.setText("FASE  9");
+        fase9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase9ActionPerformed(evt);
+            }
+        });
         jMenu1.add(fase9);
 
         fase10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, 0));
         fase10.setText("FASE  10");
+        fase10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase10ActionPerformed(evt);
+            }
+        });
         jMenu1.add(fase10);
 
         jMenuBar1.add(jMenu1);
@@ -361,13 +498,40 @@ public class Exercicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void gerarFase(int index){
+        iniciado = false;
+        execucaoExercicio = false;
+        pauseClock();
+        txtSaida.setVisible(false);
+        
+        //Se esa fase ainda não foi instanciada (acessada) e faz instancia e joga no ArrayList
+        //int i=nv-1, j=exe-1;
+        System.out.println(fases.isEmpty()+" Tamanho: "+fases.size());
+        System.out.println(fases.get(index).getJ()+" | "+fases.get(index).getI());
+        /*
+        if(exeFeito[i][j] == false){
+            
+            fases = new ArrayList<Fase>();
+            fases.add(new Fase(i, j));
+            fases.get(fases.size()-1).setIndex(fases.size()-1);
+            
+            
+        }
+        */
+        exeFeito[fases.get(index).getI()][fases.get(index).getJ()] = true;
+        //Coloca o objeto do array num objeto faseAtual
+        faseAtual = fases.get(index);
+        System.out.println(faseAtual.getIndex());
+        //txtPraDigitar = faseN1E1.getTxt();
+    }
+    
     private void txtEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyReleased
         erros = acertos=0;
                 
         arrayDigitado = txtEntrada.getText().toCharArray();
         
         //Condição que aciona o evento de termino da atividade
-        if(arrayDigitado.length == arrayPraDigitar.length){
+        if(arrayDigitado.length >= arrayPraDigitar.length){
             terminarExercicio();            
             
             txtEntrada.setEditable(false);
@@ -404,11 +568,44 @@ public class Exercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void fase1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase1ActionPerformed
-        // TODO add your handling code here:
+        //terminarExercicio();
+        gerarFase(0);
+        preparaExercicio();
+        /*
+        fases = new ArrayList<Fase>();    
+        //Se esa fase ainda não foi instanciada (acessada) e faz instancia e joga no ArrayList
+        int nv=1, exe=1;
+        int i=nv-1, j=exe-1;
+        System.out.println(fases.isEmpty());
+        if(exeFeito[i][j] == false){
+            fases.add(new Fase(nv, exe));
+            fases.get(fases.size()-1).setIndex(fases.size()-1);
+            exeFeito[i][j] = true;
+        }
+        //Coloca o objeto do array num objeto faseAtual
+        faseAtual = getObj(nv, exe);     
+        System.out.println(faseAtual.getTxt());
+        //txtPraDigitar = faseN1E1.getTxt();
+        */
     }//GEN-LAST:event_fase1ActionPerformed
 
     private void fase2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase2ActionPerformed
-        // TODO add your handling code here:
+        
+        gerarFase(1);
+        preparaExercicio();
+        /*
+        //Se esa fase ainda não foi instanciada (acessada) e faz instancia e joga no ArrayList
+        int nv=1, exe=2;
+        int i=nv-1, j=exe-1;
+        
+        if(exeFeito[i][j] == false){
+            fases.add(new Fase(nv, exe));
+            fases.get(fases.size()-1).setIndex(fases.size()-1);
+            exeFeito[i][j] = true;
+        }
+        //Coloca o objeto do array num objeto faseAtual
+        faseAtual = getObj(nv, exe);
+        */
     }//GEN-LAST:event_fase2ActionPerformed
 
     private void txtEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEntradaKeyPressed
@@ -472,8 +669,48 @@ public class Exercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciar1ActionPerformed
 
     private void fase5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase5ActionPerformed
-        // TODO add your handling code here:
+        gerarFase(4);
+        preparaExercicio();
     }//GEN-LAST:event_fase5ActionPerformed
+
+    private void fase3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase3ActionPerformed
+        gerarFase(2);
+        preparaExercicio();
+    }//GEN-LAST:event_fase3ActionPerformed
+
+    private void fase4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase4ActionPerformed
+        gerarFase(3);
+        preparaExercicio();
+    }//GEN-LAST:event_fase4ActionPerformed
+
+    private void fase6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase6ActionPerformed
+        gerarFase(5);
+        preparaExercicio();
+    }//GEN-LAST:event_fase6ActionPerformed
+
+    private void fase7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase7ActionPerformed
+        gerarFase(6);
+        preparaExercicio();
+    }//GEN-LAST:event_fase7ActionPerformed
+
+    private void fase8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase8ActionPerformed
+        gerarFase(7);
+        preparaExercicio();
+    }//GEN-LAST:event_fase8ActionPerformed
+
+    private void fase9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase9ActionPerformed
+        gerarFase(8);
+        preparaExercicio();
+    }//GEN-LAST:event_fase9ActionPerformed
+
+    private void fase10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase10ActionPerformed
+        gerarFase(9);
+        preparaExercicio();
+    }//GEN-LAST:event_fase10ActionPerformed
+
+    private void fase1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fase1MouseReleased
+       
+    }//GEN-LAST:event_fase1MouseReleased
     
     //Metodo do Iniciar Relogio Relógio
     public void startClock(){
@@ -514,6 +751,32 @@ public class Exercicio extends javax.swing.JFrame {
             rodando = false;        
         }
     }
+    /*
+    public Fase getObj(int nivel, int exercicio){
+        for(Fase fase : fases) {
+            if (fase.getNivel() == nivel && fase.getExercicio() == exercicio) {
+                System.out.println("Gerou obj "+nivel+" | "+exercicio);
+                return fase;
+            }    
+        }
+        System.out.println("Erro objeto não encontrato");
+        return fases.get(0);
+    */
+    
+    public void preparaExercicio(){
+        iniciado = false;
+        execucaoExercicio = false;
+        
+        txtAnterior = "";
+        txtEntrada.setText("");
+
+        qtdAcertos.setText(" - ");
+        qtdErros.setText(" - ");
+
+        //Reiniciar o tempo
+        contador = 0;
+        duracao.setText("- : -");
+    }
     
     public void iniciaExercicio(){
         iniciado = true;
@@ -535,7 +798,9 @@ public class Exercicio extends javax.swing.JFrame {
         
         txtEntrada.setEditable(true);
 
-        txtPraDigitar = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
+        //txtPraDigitar = new String("Bola casa pato\nmesa dado copo bola casa pato mesa dado copo bola casa pato mesa dado copo casa pato bola.");
+        txtPraDigitar = faseAtual.getTxt();
+        System.out.println(txtPraDigitar);
         arrayPraDigitar = txtPraDigitar.toCharArray(); //Guarda o texto que deve ser digitado
         txtSaida.setText(txtPraDigitar);
 
@@ -563,6 +828,122 @@ public class Exercicio extends javax.swing.JFrame {
         pauseClock();
         txtSaida.setVisible(false);
         
+        jPanel2.setVisible(false);
+        
+        //errosTotal = Integer.parseInt(qtdErros.getText());
+        //acertoTotal = Integer.parseInt(qtdAcertos.getText());
+        tempo = contador;
+        
+        //Aplicação da formula de velocidade de digitação
+        //O contador guarda o tempo em segundos
+        if(contador<60){
+            int k_multiplicador = 60/contador;
+            letraPorMinuto = k_multiplicador*arrayPraDigitar.length; 
+        }else{  
+            letraPorMinuto = arrayPraDigitar.length/contador;
+        }
+
+        //JPanel jPanelTelaRelatorio = new javax.swing.JPanel();
+        //JLabel titulo = new javax.swing.JLabel();
+        JLabel jLabelNome = new javax.swing.JLabel();
+        JLabel lNome = new javax.swing.JLabel();
+        JLabel JLabelqtdErro = new javax.swing.JLabel();
+        JLabel jLabelqtdAcerto = new javax.swing.JLabel();
+        JLabel qtdErro = new javax.swing.JLabel();
+        JLabel qtdAcerto = new javax.swing.JLabel();
+        JLabel jLabelWpm = new javax.swing.JLabel();
+        JLabel wpm = new javax.swing.JLabel();
+        JLabel jLabelDuracao = new javax.swing.JLabel();
+        JLabel duracaoRelatorio = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        //titulo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
+        //titulo.setText("RELATÓRIO FASE 01");
+        jLabelNome.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelNome.setText("NOME");
+
+        lNome.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        lNome.setText(nomeUser);
+
+        JLabelqtdErro.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        JLabelqtdErro.setText("TAXA DE ERROS");
+
+        jLabelqtdAcerto.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelqtdAcerto.setText("TAXA DE ACERTOS");
+
+        qtdErro.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        qtdErro.setText(qtdErros.getText()==" - "?"0":qtdErros.getText());
+
+        qtdAcerto.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        qtdAcerto.setText(qtdAcertos.getText()==" - "?"0":qtdAcertos.getText());
+
+        jLabelWpm.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelWpm.setText("WPM");
+
+        wpm.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        wpm.setText(letraPorMinuto+" Caracter/Minuto");
+
+        jLabelDuracao.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabelDuracao.setText("DURAÇÃO");
+
+        duracaoRelatorio.setFont(new java.awt.Font("Arial", 2, 24)); // NOI18N
+        duracaoRelatorio.setText(tempo+"s");
+
+        javax.swing.GroupLayout dadosRelatorioLayout = new javax.swing.GroupLayout(display);
+        display.setLayout(dadosRelatorioLayout);
+        dadosRelatorioLayout.setHorizontalGroup(
+                dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dadosRelatorioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelqtdAcerto)
+                                .addComponent(JLabelqtdErro)
+                                .addComponent(jLabelWpm)
+                                .addComponent(jLabelNome)
+                                .addComponent(jLabelDuracao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lNome)
+                                .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(duracaoRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(wpm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(qtdAcerto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(qtdErro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18))
+        );
+        dadosRelatorioLayout.setVerticalGroup(
+                dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dadosRelatorioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelNome)
+                                .addComponent(lNome))
+                        .addGap(11, 11, 11)
+                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(JLabelqtdErro)
+                                .addComponent(qtdErro))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelqtdAcerto)
+                                .addComponent(qtdAcerto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelWpm)
+                                .addComponent(wpm))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(dadosRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelDuracao)
+                                .addComponent(duracaoRelatorio))
+                        .addContainerGap(67, Short.MAX_VALUE))
+        );
+        
+        
+        
+        
+        
+        
+        /*
         //JPanel jPanelTelaRelatorio = new javax.swing.JPanel();
         //JLabel titulo = new javax.swing.JLabel();
         JLabel jLabelNome = new javax.swing.JLabel();
@@ -657,7 +1038,7 @@ public class Exercicio extends javax.swing.JFrame {
                     .addComponent(jLabelDuracao)
                     .addComponent(duracaoRelatorio))
                 .addContainerGap(67, Short.MAX_VALUE))
-        );
+        );*/
     }
     
     public static void main(String args[]) {        
@@ -701,6 +1082,7 @@ public class Exercicio extends javax.swing.JFrame {
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel display;
+    private javax.swing.JPanel display3;
     private javax.swing.JLabel duracao;
     private javax.swing.JMenuItem fase1;
     private javax.swing.JMenuItem fase10;
@@ -719,7 +1101,7 @@ public class Exercicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
