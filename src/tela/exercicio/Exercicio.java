@@ -141,6 +141,9 @@ public class Exercicio extends javax.swing.JFrame {
         
         this.setTitle("Nivel "+(nivelAtual+1)+ " Exercicio "+faseAtual.getExercicio());
         tituloExercicio.setText("Nivel "+(nivelAtual+1)+ " Exercicio "+faseAtual.getExercicio());
+        
+        txtEntrada.setAutoscrolls(false);
+        //txtEntrada.set
     }
 
     /**
@@ -188,6 +191,7 @@ public class Exercicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtEntrada.setAutoscrolls(false);
         txtEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtEntradaKeyPressed(evt);
@@ -200,6 +204,7 @@ public class Exercicio extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(txtEntrada);
+        txtEntrada.getAccessibleContext().setAccessibleName("");
 
         duracao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         duracao.setText("- : -");
