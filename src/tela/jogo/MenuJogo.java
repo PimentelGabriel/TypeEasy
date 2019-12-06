@@ -6,6 +6,7 @@
 package tela.jogo;
 
 import tela.TelaMenu;
+import jogoClasses.Container;
 
 /**
  *
@@ -149,15 +150,15 @@ public class MenuJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-TelaMenu obj = new TelaMenu();
-       
-       obj.setVisible(true);
-       dispose();
+        TelaMenu obj = new TelaMenu();
+
+        obj.setVisible(true);
+        dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
- TelaJogo obj = new TelaJogo();
+        Container obj = new Container();
      
          obj.setVisible(true);
          
@@ -190,6 +191,10 @@ TelaMenu obj = new TelaMenu();
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuJogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
